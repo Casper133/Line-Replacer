@@ -23,8 +23,5 @@
     <ClCompile Include="line-replacer-library.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dll-main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

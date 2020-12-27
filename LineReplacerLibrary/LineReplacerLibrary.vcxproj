@@ -156,7 +156,6 @@
     <ClInclude Include="line-replacer-library.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dll-main.cpp" />
     <ClCompile Include="line-replacer-library.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

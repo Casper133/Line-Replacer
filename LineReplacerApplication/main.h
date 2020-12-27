@@ -1,10 +1,10 @@
 #pragma once
 
-#include <windows.h>
+#include <iostream>
 #include "line-replacer-library.h"
 
-void performStaticImport();
+void performStaticImport(char originalString[]);
 
-void performDynamicImport();
+void performDynamicImport(char originalString[]);
 
-void performThreadInjection();
+void performThreadInjection(char originalString[]);
