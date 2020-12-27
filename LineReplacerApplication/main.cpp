@@ -3,6 +3,13 @@
 #define ORIGINAL_STRING "OriginalString"
 #define REPLACEMENT_STRING "Qwerty"
 
+#define DLL_NAME "LineReplacerLibrary.dll"
+#define DLL_PROC_NAME "replaceString"
+
+// DLL_PROC is a pointer type
+// DLL_PROC points to function with signature: void funcName(const char*, const char*)
+typedef void(__cdecl* DLL_PROC)(const char*, const char*);
+
 using namespace std;
 
 int main()
@@ -46,7 +53,25 @@ void performStaticImport(char originalString[])
 
 void performDynamicImport(char originalString[])
 {
-    // TODO
+
+	HMODULE hLibrary;					// Library descriptor
+	DLL_PROC ProcAddr;					// Pointer to a fucntion
+	BOOL runTimeLinkSuccessful = FALSE;
+
+	hLibrary = LoadLibrary(TEXT(DLL_NAME));
+    
+	// Get function address if library was loaded
+	if (hLibrary != NULL)
+	{
+		ProcAddr = (DLL_PROC)GetProcAddress(hLibrary, DLL_PROC_NAME);
+
+		if (NULL != ProcAddr)
+		{	
+			runTimeLinkSuccessful = TRUE;
+			(ProcAddr)(originalString, REPLACEMENT_STRING);
+		}
+	}
+	if (!runTimeLinkSuccessful) { cout << "Run Time Linking Failled."; }
 }
 
 void performThreadInjection(char originalString[])
