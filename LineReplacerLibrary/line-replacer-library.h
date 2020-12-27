@@ -5,4 +5,4 @@
 #define WIN32_LEAN_AND_MEAN
 #define DLL_EXPORT __declspec(dllexport)
 
-DLL_EXPORT void replaceString(const char *originalString, const char *replacementString);
+extern "C" DLL_EXPORT void replaceString(const char *originalString, const char *replacementString);
