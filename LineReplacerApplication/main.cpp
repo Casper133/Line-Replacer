@@ -1,8 +1,5 @@
 #include "main.h"
 
-#define ORIGINAL_STRING "OriginalString"
-#define REPLACEMENT_STRING "Qwerty"
-
 #define DLL_NAME "LineReplacerLibrary.dll"
 #define DLL_PROC_NAME "replaceString"
 
@@ -35,7 +32,7 @@ int main()
 		performDynamicImport(string);
 		break;
 	case 3:
-		performThreadInjection(string);
+		performThreadInjection();
 		break;
 	default:
 		return 0;
@@ -43,6 +40,7 @@ int main()
 	}
 
     cout << endl << "Original: " << ORIGINAL_STRING << endl << "Replaced: " << string << endl;
+
 	return 0;
 }
 
@@ -74,7 +72,31 @@ void performDynamicImport(char originalString[])
 	if (!runTimeLinkSuccessful) { cout << "Run Time Linking Failled."; }
 }
 
-void performThreadInjection(char originalString[])
+void performThreadInjection()
 {
-    // TODO
+	DWORD pid = GetCurrentProcessId();
+	HANDLE hProcess = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pid);
+
+	if (hProcess == INVALID_HANDLE_VALUE) {
+		return;
+	}
+
+	void* loc = VirtualAllocEx(hProcess, NULL, MAX_PATH, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
+
+	if (!loc) {
+		return;
+	}
+
+	WriteProcessMemory(hProcess, loc, DLL_NAME, strlen(DLL_NAME) + 1, 0);
+
+	HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)LoadLibrary, loc, 0, 0);
+
+	if (hThread) {
+		WaitForSingleObject(hThread, INFINITE);
+		CloseHandle(hThread);
+	}
+
+	if (hProcess) {
+		CloseHandle(hProcess);
+	}
 }

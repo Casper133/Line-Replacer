@@ -7,4 +7,4 @@ void performStaticImport(char originalString[]);
 
 void performDynamicImport(char originalString[]);
 
-void performThreadInjection(char originalString[]);
+void performThreadInjection();
