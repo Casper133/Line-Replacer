@@ -1,9 +1,7 @@
-// dllmain.cpp : Определяет точку входа для приложения DLL.
-//#include "framework.h"
 #include "line-replacer-library.h"
 
-char originalString[] = "OriginalString";
-char replacementString[] = "Qwerty_____";
+char originalString[] = ORIGINAL_STRING;
+char replacementString[] = REPLACEMENT_STRING;
 
 BOOL APIENTRY DllMain(HMODULE hModule,
 	DWORD  ul_reason_for_call,

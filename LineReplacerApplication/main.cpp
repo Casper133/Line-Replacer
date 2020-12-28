@@ -1,8 +1,5 @@
 #include "main.h"
 
-#define ORIGINAL_STRING "OriginalString"
-#define REPLACEMENT_STRING "Qwerty"
-
 #define DLL_NAME "LineReplacerLibrary.dll"
 #define DLL_PROC_NAME "replaceString"
 
@@ -95,6 +92,7 @@ void performThreadInjection()
 	HANDLE hThread = CreateRemoteThread(hProcess, NULL, 0, (LPTHREAD_START_ROUTINE)LoadLibrary, loc, 0, 0);
 
 	if (hThread) {
+		WaitForSingleObject(hThread, INFINITE);
 		CloseHandle(hThread);
 	}
 
