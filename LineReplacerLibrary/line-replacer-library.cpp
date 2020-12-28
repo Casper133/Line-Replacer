@@ -1,4 +1,6 @@
 #include "line-replacer-library.h"
+#include <iostream>
+#include <cstdio>
 
 void replaceString(const char *originalString, const char *replacementString)
 {
